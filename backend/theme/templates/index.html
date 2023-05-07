@@ -1,56 +1,65 @@
 {% load static tailwind_tags %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>Log in</title>
+<head>
+	{% if request.user.is_authenticated %}
+		<title>Auth</title>
+	{% else %}
+		<title>Not auth</title>
+	{% endif %}
 
-    <!-- Stylesheets -->
-    <!-- <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"> -->
-    {% tailwind_css %}
+	<!-- <title>Django Tailwind</title> -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	{% tailwind_css %}
+</head>
 
-  </head>
-  <body>
-    <!-- Page Container -->
-    <div class="min-h-screen flex items-center justify-center bg-gray-100 text-gray-900 relative">
-      <!-- Log In Section -->
-      <div class="px-5 py-6 lg:px-6 lg:py-8 w-full md:w-8/12 lg:w-6/12 xl:w-4/12 relative">
-        <div class="mb-6 text-center">
-          <p class="text-gray-600">
-            Welcome, please log in
-          </p>
-        </div>
-        <!-- Form -->
-        <div class="rounded border p-6 lg:p-10 shadow-sm bg-white">
-          <form>
-            <label class="block text-gray-700">
-              Username
-              <input type="username" class="appearance-none border rounded px-4 py-3 mt-1 block w-full outline-none focus:border-blue-500" placeholder="Enter your username">
-            </label>
-            <label class="block text-gray-700 mt-4">
-              Password
-              <input type="password" class="appearance-none border rounded px-4 py-3 mt-1 block w-full outline-none focus:border-blue-500" placeholder="Enter your password">
-            </label>
-            <div class="mt-6">
-              <button type="submit" class="px-4 py-3 bg-blue-500 text-white rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline block w-full">Sign In</button>
-            </div>
-          </form>
-          <div class="mt-6 text-center text-sm">
-            <a class="text-gray-600 hover:text-gray-700 underline block md:inline-block mb-2 md:mb-0" href="create.html">Create Account</a>
-          </div>
-        </div>
-        <!-- END Form -->
+<body class="bg-gray-900 font-sans leading-normal tracking-normal overflow-hidden">
+	<header>
+		<nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+			<div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+				<a href="{% url 'index' %}" class="flex items-center">
+					<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Polling App</span>
+				</a>
 
-        <!-- Footer -->
-        <div class="text-xs text-gray-600 text-center mt-6">
-        </div>
-        <!-- END Footer -->
-      </div>
-      <!-- END Log In Section -->
-    </div>
-    <!-- END Page Container -->
-  </body>
+				{% if request.user.is_authenticated %}
+					{% block logout_button %} <div class="flex items-center lg:order-2">
+						<a href="{% url 'logout' %}"
+							class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Log out</a>
+					</div>
+					{% endblock %}
+				{% else %}
+					{% block login_button %} <div class="flex items-center lg:order-2">
+						<a href="{% url 'login' %}"
+							class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Log
+							in</a>
+					</div>
+					{% endblock %}
+				{% endif %}
+				<div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
+					<ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+						<li>
+							<a href="{% url 'index' %}"
+								class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Home</a>
+						</li>
+						<li>
+							<a href="{% url 'create' %}"
+								class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Create poll</a>
+						</li>
+						<li>
+							<a href="#"
+								class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Profile</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	{% block content %}
+	
+	{% endblock %}
+</body>
+
 </html>
