@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Poll(models.Model):
@@ -17,6 +18,6 @@ class Choice(models.Model):
         return self.choice_text
 
 class Vote(models.Model):
-    user = models.ForeignKey()
-    poll = models.ForeignKey(Poll)
-    choice = models.ForeignKey(Choice)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
+    choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
