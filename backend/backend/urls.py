@@ -17,6 +17,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from django.views.generic import TemplateView
+
+from django.urls import include, path
+
+from app import views
+
+import os
+
+from django.conf import settings
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("__reload__/", include("django_browser_reload.urls")),
+
+    # path('', TemplateView.as_view(template_name="theme/templates/base.html")),
+    # path('', TemplateView.as_view(template_name=os.path.join(settings.BASE_DIR, 'theme/templates/index.html')))
+
+    path('', views.test_view, name="test")
 ]

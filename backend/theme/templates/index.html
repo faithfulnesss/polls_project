@@ -1,0 +1,56 @@
+{% load static tailwind_tags %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Log in</title>
+
+    <!-- Stylesheets -->
+    <!-- <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"> -->
+    {% tailwind_css %}
+
+  </head>
+  <body>
+    <!-- Page Container -->
+    <div class="min-h-screen flex items-center justify-center bg-gray-100 text-gray-900 relative">
+      <!-- Log In Section -->
+      <div class="px-5 py-6 lg:px-6 lg:py-8 w-full md:w-8/12 lg:w-6/12 xl:w-4/12 relative">
+        <div class="mb-6 text-center">
+          <p class="text-gray-600">
+            Welcome, please log in
+          </p>
+        </div>
+        <!-- Form -->
+        <div class="rounded border p-6 lg:p-10 shadow-sm bg-white">
+          <form>
+            <label class="block text-gray-700">
+              Username
+              <input type="username" class="appearance-none border rounded px-4 py-3 mt-1 block w-full outline-none focus:border-blue-500" placeholder="Enter your username">
+            </label>
+            <label class="block text-gray-700 mt-4">
+              Password
+              <input type="password" class="appearance-none border rounded px-4 py-3 mt-1 block w-full outline-none focus:border-blue-500" placeholder="Enter your password">
+            </label>
+            <div class="mt-6">
+              <button type="submit" class="px-4 py-3 bg-blue-500 text-white rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline block w-full">Sign In</button>
+            </div>
+          </form>
+          <div class="mt-6 text-center text-sm">
+            <a class="text-gray-600 hover:text-gray-700 underline block md:inline-block mb-2 md:mb-0" href="create.html">Create Account</a>
+          </div>
+        </div>
+        <!-- END Form -->
+
+        <!-- Footer -->
+        <div class="text-xs text-gray-600 text-center mt-6">
+        </div>
+        <!-- END Footer -->
+      </div>
+      <!-- END Log In Section -->
+    </div>
+    <!-- END Page Container -->
+  </body>
+</html>
