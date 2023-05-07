@@ -34,5 +34,10 @@ urlpatterns = [
     # path('', TemplateView.as_view(template_name="theme/templates/base.html")),
     # path('', TemplateView.as_view(template_name=os.path.join(settings.BASE_DIR, 'theme/templates/index.html')))
 
-    path('', views.test_view, name="test")
+    path('', views.index_view, name="index"),
+    path('login/', views.login_view, name="login"),
+    path('register/', views.register_view, name="register"),
+    path('create/', views.create_view, name="create"),
+    path('logout/', views.logout_view, name="logout"),
+    path('profile/', views.profile_view, name="profile"),
 ]
