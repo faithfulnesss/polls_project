@@ -37,7 +37,8 @@ urlpatterns = [
     path('', views.index_view, name="index"),
     path('login/', views.login_view, name="login"),
     path('register/', views.register_view, name="register"),
-    path('create/', views.create_view, name="create"),
+    path('create/', views.create_poll_view, name="create_poll"),
     path('logout/', views.logout_view, name="logout"),
     path('profile/', views.profile_view, name="profile"),
+    path('vote/<int:poll_id>/', views.vote_view, name='vote'),
 ]
