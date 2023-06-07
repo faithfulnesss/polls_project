@@ -1,0 +1,94 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="flex h-screen bg-gray-900">
+    <div class="m-auto">
+
+        <div class="w-full max-w-xs">
+
+            <form method="post" action="{% url 'create_poll' %}">
+                {% csrf_token %}
+
+                <div class="mb-6">
+                    {{ poll_form.as_p }}
+                </div>
+
+                {{ formset.management_form }}
+
+                <div id="choices-container">
+                    {% for form in formset %}
+                    <div class="mb-6">
+                        {{ form.as_p }}
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- <button type="button" class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Alternative</button> -->
+
+                <input type="submit" id="formset-total-form-count"
+                    class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                    value="Create poll">
+
+                <button type="button" id="add-choice">Add Choice</button>
+
+
+                <script>
+
+                    let choiceForm = document.querySelectorAll('.choice-form');
+                    let container = document.querySelector("#choices-container");
+                    let addButton = document.querySelector("#add-choice");
+                    let totalForms = document.querySelectorAll(".choice-form").length;
+
+                    addButton.addEventListener('click', addForm);
+
+                    function addForm(e) {
+                        e.preventDefault();
+
+                        const template = '<div class="mb-6">\
+                                                    <p>\
+                                                        <input type="text" name="form-${totalForms}-choice_text" placeholder="Enter choice" class="choice-form block w-full p-4 text-gray-900 border border-gray-300 mb-4 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" maxlength="200" id="id_form-${totalForms}-choice_text">\
+                                                        <div class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded flex items-center">\
+                                                            <span>Delete</span>\
+                                                            </div>\
+                                                    </p>\
+                                                </div>'
+
+                        const newForm = document.createElement('div');
+                        newForm.innerHTML = template;
+             
+                        // const template = choiceForm[0].parentNode.parentNode.cloneNode(true).innerHTML;
+                        // let newForm = choiceForm[0].parentNode.parentNode.cloneNode(true);
+                        console.log(choiceForm[0].parentNode.parentNode.cloneNode(true))
+
+                        updateFormIDs(newForm, totalForms);
+
+                        container.insertBefore(newForm, choiceForm[totalForms - 1].parentNode.parentNode.nextSibling);
+
+                        choiceForm = document.querySelectorAll('.choice-form');
+
+                        totalForms += 1;
+                    }
+
+                    function updateFormIDs(form, index) {
+                        let inputs = form.getElementsByTagName('input');
+
+                        for (let i = 0; i < inputs.length; i++) {
+                            let input = inputs[i];
+                            let nameAttr = input.getAttribute('name');
+                            let newAttr = nameAttr.replace(/\d+/, index);
+                            input.setAttribute('name', newAttr);
+
+                            let idAttr = input.getAttribute('id');
+                            let newIdAttr = idAttr.replace(/\d+/, index);
+                            input.setAttribute('id', newIdAttr);
+                        }
+                    }
+
+                </script>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
